@@ -2,7 +2,7 @@
 Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
 Date: 2023-07-25 12:43:47
 LastEditors: xuhao0101
-LastEditTime: 2023-09-14 20:53:22
+LastEditTime: 2023-09-15 14:25:25
 FilePath: /Focus_Dataset_v2/store.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -92,8 +92,8 @@ def main(args):
             inputs_info = sorted(inputs_info, key=lambda x: list(x.values())[0]["file_pages"])
             # 把列表中字典根据类型排序
             inputs_info = sorted(inputs_info, key=lambda x: list(x.values())[0]["file_type"])
-            file_texts = multi_worker_read_text(inputs_info, args.workers)
-            print("MUL_end")
+            file_texts = multi_worker_read_text(inputs_info[:args.file_numbers], args.workers)
+            # print("MUL_end")
             # keys = list(update_info.keys())
             # for info in tqdm(keys[50:150]):
             #     inputs_info.append({info: update_info[info]})
@@ -260,6 +260,7 @@ if __name__ == "__main__":
     parser.add_argument("--tokenizer_path", type=str, default="/home/xuhao/xcxhy/Focus_Dataset/llama2_tokenizer/llama2-7b-hf")
     parser.add_argument("--file_types", type=list, choices=["pdf", "word", "doc", "txt","epub", "xlsx", "csv", "ppt"], default=["word"])
     parser.add_argument("--mode", type=str, choices=["init", "concat"], default="concat")
+    parser.add_argument("--file_numbers", type=int, default=-1)
     parser.add_argument("--read_text", type=bool, default=True)
     parser.add_argument("--read_info", type=bool, default=False)
     parser.add_argument("--workers", type=int, default=1)
