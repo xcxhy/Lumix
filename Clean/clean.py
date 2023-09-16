@@ -137,14 +137,14 @@ def fuzzy_deduplicated(text_list):
     save_list = list(chain.from_iterable(save_list))
     return save_list
     
-# 输入id-text字典与text_to_value_dict，输出list用于保存
+# input id-text dict and text-value dict to get save list
 def get_save_list(text_to_value_dict, clean_dict):
     save_list = []
     for key in tqdm(list(clean_dict.keys())):
         value = text_to_value_dict[clean_dict[key]]
         save_list.append(value)
     return save_list
-# 输入sim_merged_list/min_merged_list， text_down_list/text_up_list，text_to_index_dict输出真实得sim_merged_list/min_merged_list
+# input sim_merged_list/min_merged_list, text_down_list/text_up_list, text_to_index_dict, output real sim_merged_list/min_merged_list
 def get_hash_index(merged_list, text_list, text_to_index_dict):
     hash_index = []
     for value in tqdm(merged_list):
@@ -156,7 +156,6 @@ def get_hash_index(merged_list, text_list, text_to_index_dict):
         hash_index.append(index_list)
     return hash_index
 
-# 输入text， 输出匹配删除后的text
 def remove_gzh_regxy_match(text_dict):
     weixinhao_pattern1 = r'微信号\s\w+\s?'
     weixinhao_pattern2 = r'\w*\s微信号\s\w+\s?'
@@ -171,8 +170,6 @@ def remove_gzh_regxy_match(text_dict):
     brackets_pattern = r'[(（【\[].+?[)）\]】]'
     begin_pattern = r'^\w+\s?\|\s?'
     space_pattern = r'\s(\S)\s'
-    
-    
     new_dict = {}
     for key in tqdm(list(text_dict.keys())):
         text = text_dict[key]
@@ -260,7 +257,6 @@ def remove_network_match(text):
     text = remove_phone(text)
     text = remove_all_numbers(text)
     return text.strip()
-
 def remove_langchao_match(text):
     text = re.sub(r'<n>', r'\n', text)
     # 删除空括号
@@ -280,9 +276,8 @@ def remove_langchao_match(text):
         text = "\n".join(text_list[:-1])
     text = text.strip()
     return text
-    
-    
-# 根据空格分割单个公众号数据编号
+
+# split texts by space
 def split_texts_by_space(text_dict):
     new_list = []
     for key in tqdm(list(text_dict.keys())):
@@ -294,7 +289,8 @@ def split_texts_by_space(text_dict):
                              "index": str(i),
                              "text": sentence})
     return new_list
-# 根据点分割单个公众号数据编号
+
+# split texts by dot
 def split_texts_by_dot(text_dict):
     new_list = []
     for key in tqdm(list(text_dict.keys())):
@@ -306,7 +302,7 @@ def split_texts_by_dot(text_dict):
                              "index": str(i),
                              "text": sentence})
     return new_list
-# 根据关键词文本，匹配句子是否包含关键词
+# match keywords
 def match_keywords(text_list, keywords):
     keywords = sorted(keywords, key=lambda x:len(x), reverse=True)
     for value in tqdm(text_list):
@@ -319,7 +315,7 @@ def match_keywords(text_list, keywords):
             value["keyword"] = ""
     return text_list
 
-# 根据关键词文本，匹配句子是否包含关键词
+# match keywords by text
 def match_references_keywords(text_list):
     for value in tqdm(text_list):
         if "References" in value["text"]:
@@ -335,10 +331,9 @@ def match_references_keywords(text_list):
             value["is_match"] = False
             value["keyword"] = ""
     return text_list
-    
-# 合并关键词的句子
+# concat sentences with keywords
 def merge_sentence(text_list):
-    # 根据text_dict的value["id"]将text_dict分组
+    # split text_dict by id
     id_to_text_dict = {}
     for value in tqdm(text_list): 
         id = value["id"]
@@ -347,15 +342,13 @@ def merge_sentence(text_list):
         else:
             id_to_text_dict[id].append(value)
     return id_to_text_dict
-# 根据关键词合并句子删除前后
+# delete reference before and after
 def merge_sentence_by_bool(id_to_text_dict):
     new_dict = {}
     for key in tqdm(list(id_to_text_dict.keys())):
         text_dict_list = id_to_text_dict[key]
-        # 制作一个index-text字典
-        # 制作(index，is_match)列表
-        index_to_bool_list = []
-        index_to_text_dict = {}
+        index_to_bool_list = [] # make a index, is_match list
+        index_to_text_dict = {} # make a index-text dict
         for text_dict in text_dict_list:
             text = text_dict["text"]
             index = text_dict["index"]
@@ -383,15 +376,13 @@ def merge_sentence_by_bool(id_to_text_dict):
             new_text = clean_space(new_text)
             new_dict[key] = new_text 
     return new_dict
-# 根据关键词合并删除reference后内容
+# concat sentences with keywords delete reference after text
 def merge_sentence_by_reference(id_to_text_dict):
     new_dict = {}
     for key in tqdm(list(id_to_text_dict.keys())):
         text_dict_list = id_to_text_dict[key]
-        # 制作一个index-text字典
-        # 制作(index，is_match, keyword)列表
-        index_to_bool_list = []
-        index_to_text_dict = {}
+        index_to_bool_list = [] # make a index, is_match list
+        index_to_text_dict = {} # make a index-text dict
         for text_dict in text_dict_list:
             text = text_dict["text"]
             index = text_dict["index"]
@@ -428,12 +419,12 @@ def find_reference_index(sorted_list):
             false_index.append(i)
         if sorted_list[i][2] == "References":
             ref_index = i
-    # res_index的位置
+    # res_index location
     if ref_index == -1:
         return -1
     else:
         return ref_index
-# 替换粘连的句子
+# replace attach sentence
 def replace_wordninja(text):
     text_list = re.findall(r'[a-zA-Z]{10,}', text)
     replace_list = []
@@ -444,34 +435,34 @@ def replace_wordninja(text):
     for i in range(len(text_list)):
         replace_text = replace_text.replace(text_list[i], " ".join(replace_list[i]),1)
     return replace_text
-# 删除数据中的特殊符号
+# delete special unicode
 def remove_special_unicode(text_dict):
     new_dict = {}
-    print("开始删除数据中的特殊符号")
+    print("start delete special unicode")
     for key in tqdm(list(text_dict.keys())):
         text = text_dict[key]
         res = emoji.replace_emoji(text, replace="")
         new_text = remove_unicode_fixed(res)
         new_dict[key] = new_text
-    print("删除数据中的特殊符号完成!")
+    print("delete special unicode finished!")
     return new_dict
 def remove_special_unicode2(text):
     res = emoji.replace_emoji(text, replace="")
     new_text = remove_unicode_fixed(res)
     return new_text
-# 删除数据中多余的空格与换行符
+# delete redundant space and line
 def remove_dup_space_and_line(text_dict):
-    print("开始删除数据中多余的空格与换行符")
+    print("start delete redundant space and line")
     new_dict = {}
     for key in tqdm(list(text_dict.keys())):
         text = text_dict[key]
         new_text = remove_consecutive_symbols(text)
         new_dict[key] = new_text
-    print("删除数据中多余的空格与换行符完成!")
+    print("delete redundant space and line finished!")
     return new_dict
-# 删除长度短于50的样本
+# delete short text below 50
 def remove_short_text(text_dict):
-    print("开始删除长度短于50的样本")
+    print("start delete short text below 50")
     new_dict = {}
     for key in tqdm(list(text_dict.keys())):
         text = text_dict[key]
@@ -479,9 +470,9 @@ def remove_short_text(text_dict):
             continue
         else:
             new_dict[key] = text
-    print("删除长度短于50的样本完成!")
+    print("delete short text below 50 finished!")
     return new_dict
-# 按空格分割文本成list
+# split text to list by space
 def split_en_text_by_space(text_dict):
     new_dict = {}
     for key in tqdm(list(text_dict.keys())): 
@@ -489,10 +480,10 @@ def split_en_text_by_space(text_dict):
         text_list = text.split(" ")
         new_dict[key] = text_list
     return new_dict
-# 解决文本粘连
+# Resolve text adhesion
 def split_attach_text(text_dict):
     new_dict = {}
-    print("开始解决粘连问题")
+    print("start resolve text adhesion")
     for key in tqdm(list(text_dict.keys())):
         text_list = text_dict[key]
         new_text_list = []
@@ -507,19 +498,19 @@ def split_attach_text(text_dict):
                         new_text_list.append(split_wordninja(other))
                     else:
                         new_text_list.append(other)
-        # 拉直list
+        # flatten list
         new_text_list = list(chain.from_iterable(new_text_list))
         new_text = " ".join(new_text_list)
         new_text = re.sub(r'\s+([^\w\s]\s+)', r'\1', new_text)
         new_text = re.sub(r'(\d+)\s+(\d+)', r'\1\2', new_text)
         new_text = re.sub(r'\-\s+(\d+)', r'-\1', new_text)
         new_dict[key] = clean_space(new_text)
-    print("解决粘连问题完成!")
+    print("resolve text adhesion finished!")
     return new_dict
-# 根据中英文与符号切分文本，并解决粘连
+# Splitting text based on Chinese and English symbols and resolving adhesions
 def split_zh_en_attach_text(text_dict):
     new_dict = {}
-    print("开始解决粘连问题")
+    print("start resolving adhesions")
     for key in tqdm(list(text_dict.keys())):
         text= text_dict[key]
         new_list = []
@@ -533,13 +524,13 @@ def split_zh_en_attach_text(text_dict):
                 new_list.append(string)
         new_text = "".join(new_list)
         new_dict[key] = clean_space(new_text)
-    print("解决粘连问题完成!")
+    print("resolving adhesions finished!")
     return new_dict
-# 计算tokens数量
+# Calculate the number of tokens
 def count_tokens(text, tokenizer):
     input = get_input_ids(text, tokenizer)
     return len(input)
-# 计算一个list得tokens数量
+# Calculate the number of tokens for a list
 def count_tokens_list(text_list, tokenizer):
     all_nums = 0
     for text in tqdm(text_list):
