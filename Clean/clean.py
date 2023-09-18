@@ -536,3 +536,16 @@ def count_tokens_list(text_list, tokenizer):
     for text in tqdm(text_list):
         all_nums += count_tokens(text, tokenizer)
     return all_nums
+
+# clean text 
+def clean_text(text):
+    text = text.strip()
+    text = remove_special_unicode2(text)
+    text = remove_consecutive_symbols(text)
+    new_text = remove_start_symbol(text)
+    return new_text
+
+# clean_text_customed
+def clean_text_customed(text):
+    
+    return text
