@@ -5,7 +5,7 @@ import numpy as np
 import fasttext
 from utils import *
 
-# 定义二分类数据函数
+# define binary dataset function
 def binary_dataset(neg_data, pos_data, save_path):
     negative_data, positive_data = [], []
     for text1 in neg_data:
@@ -14,17 +14,17 @@ def binary_dataset(neg_data, pos_data, save_path):
         positive_data.append("__label__positive" + "\t" +text2.replace("\n",""))
     
     train_data, validation_data = [], []
-    # 按照8:2划分数据集
+    # split dataset to train and validation by 2:8
     train_data.extend(negative_data[:int(len(negative_data)*0.8)])
     train_data.extend(positive_data[:int(len(positive_data)*0.8)])
     validation_data.extend(negative_data[int(len(negative_data)*0.8):])
     validation_data.extend(positive_data[int(len(positive_data)*0.8):])
     print("train_data: ", len(train_data))
     print("validation_data: ", len(validation_data))
-    # 打乱数据
+    # shuffle data
     np.random.shuffle(train_data)
     np.random.shuffle(validation_data)
-    # 写入数据
+    # write 
     with open(save_path + "/quality_train.txt", "w") as f:
         for text in train_data:
             f.write(text + "\n")
@@ -49,7 +49,7 @@ if __name__=="__main__":
             negative_data.append(text)
     print("negative_data: ", len(negative_data))
     print("positive_data: ", len(positive_data))
-    # 二分类数据
+    # binary dataset
     binary_dataset(negative_data, positive_data, "/home/xuhao/xcxhy/Focus_Classification/dataset/meaning")
     save_path = "/home/xuhao/xcxhy/Focus_Classification/dataset/meaning"
     with open(save_path + "/quality_train.txt", "r") as f:

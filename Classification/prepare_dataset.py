@@ -8,12 +8,15 @@ from Clean.clean_content import find_bad_sentence
 
 
 if __name__=="__main__":
-    # 读取数据
-    data = read_json("/home/xuhao/xcxhy/Focus_Dataset/data/trade_bbs_08_29.json")
-    trade_data = read_json("/home/xuhao/xcxhy/Focus_Dataset/data/foreign_trade_08_23_merge_content_clean.json")
+    # read data
+    normal_path = ""
+    trade_path = ""
+    normal_data = read_json(normal_path)
+    trade_data = read_json(trade_path)
+
     
     negative_data, positive_data = [], []
-    for value in tqdm(data):
+    for value in tqdm(normal_data):
         try:
             text = value["question"]
             if len(text) > 1000:
@@ -27,8 +30,8 @@ if __name__=="__main__":
     print("negative_data: ", len(negative_data))
     negative_data = list(set(negative_data))
     print("negative_data: ", len(negative_data))
-    # 将negative data 写入negative_data.txt中
-    with open("/home/xuhao/xcxhy/Focus_Classification/dataset/format/negative.txt", "w") as f:
+    # put negative data write in negative_data.txt
+    with open("negative.txt", "w") as f:
         for text in negative_data[:10000]:
             f.write(text + "\n")
     
@@ -49,26 +52,26 @@ if __name__=="__main__":
     print("positive_data: ", len(positive_data))
     positive_data = list(set(positive_data))
     print("positive_data: ", len(positive_data))
-    # 将positive data 写入positive_data.txt中
-    with open("/home/xuhao/xcxhy/Focus_Classification/dataset/format/positive.txt", "w") as f:
+    # put positive data write in positive_data.txt
+    with open("positive.txt", "w") as f:
         for text in positive_data[:10000]:
             f.write(text + "\n")
-    # 合并两个list
+    # concat two list
     all_data = negative_data[:10000] + positive_data[:10000]
     print("all_data: ", len(all_data))
     
-    # 打乱数据
+    # shuffle the data
     np.random.shuffle(all_data)
     
-    # 划分数据集
+    # split train and test dataset
     train_data = all_data[:int(len(all_data)*0.8)]
     test_data = all_data[int(len(all_data)*0.8):]
     
-    # 写入文件
-    with open("/home/xuhao/xcxhy/Focus_Classification/dataset/format/train.txt", "w") as f:
+    # write file
+    with open("train.txt", "w") as f:
         for text in train_data:
             f.write(text + "\n")
-    with open("/home/xuhao/xcxhy/Focus_Classification/dataset/format/test.txt", "w") as f:
+    with open("test.txt", "w") as f:
         for text in test_data:
             f.write(text + "\n")
 
