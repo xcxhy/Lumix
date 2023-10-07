@@ -267,20 +267,12 @@ def read_trade_books(path, files_ids, save_dir):
 
 
 if __name__=="__main__":
-    path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/origin/trade_networks_2023_08_23.json"
-    id_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/unique_ids.json"
-    save_dir = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/unique"
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--path", type=str, default="/hdfs_nfs_mount/LLM_data/llm_basedata/process/origin/trade_networks_2023_08_23.json", help="data_path")
+    parser.add_argument("--id_path", type=str, default="/hdfs_nfs_mount/LLM_data/llm_basedata/process/unique_ids.json", help="id path")
+    parser.add_argument("--save_dir", type=str, default="/hdfs_nfs_mount/LLM_data/llm_basedata/process/unique", help="save dir")
+    args = parser.parse_args()
     
-    
-    networks_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/origin/trade_networks_2023_08_23.json"
-    wiki_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/origin/trade_wiki_2023.json"
-    forum_fob_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/origin/trade_forum_fob_2023_09_08.json"
-    forum_go_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/origin/trade_forum_globalimporter_2023_09_08.json"
-    webs_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/origin/trade_webs_2023.json"
-    c4_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/origin/trade_c4_choosed.json"
-    langchao_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/langchao/choosed"
-    wudao_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/wudao/relevant"
-    books_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/origin/trade_books_2023.json"
-    
-    unified(wudao_path, id_path, save_dir)
+    unified(args.path, args.id_path, args.save_dir)
     

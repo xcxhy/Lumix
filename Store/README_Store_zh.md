@@ -83,3 +83,10 @@ python store.py --init_path <str> \
 为了后续更好的对数据进行完整的处理，需要对不同来源的数据进行固定位置，同时对不同来源的数据设置唯一的ID编码，方便后续文件数量扩大所带来的影响。
 
 ### 使用方法
+
+```
+cd Store
+python unified_format.py --path <path> --id-path <id_path> --save-dir <save_dir>
+```
+
+在运行 `unified_format.py`之前，你需要确认自己的文件名符合标准，同时你需要自定义适合你文件的读取格式。
