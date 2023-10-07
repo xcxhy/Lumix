@@ -13,6 +13,7 @@ import docx
 import ocrmypdf
 import math
 import pexpect
+import pickle
 import subprocess
 import shlex
 from pypdf import PdfReader, PdfWriter
@@ -540,3 +541,56 @@ def merge_list_with_intersection(lists):
     # end_list = list(set(list(chain.from_iterable(merged))))
     # print(len(end_list))
     return merged
+def merge_lists_with_intersection(lists):
+    merged = []
+    
+    while len(lists) > 0:
+        current_list = lists.pop(0)
+        merged_list = set(current_list)
+        
+        i = 0
+        while i < len(lists):
+            if merged_list.intersection(lists[i]):
+                merged_list.update(lists.pop(i))
+            else:
+                i += 1
+        
+        merged.append(list(merged_list))
+    
+    return merged
+# 根据文件名判断是哪个数据集
+def choose_file_category(file_path):
+    filename = file_path
+    if "trade" in filename:
+        return "trade"
+        # if "networks" in filename:
+        #     return "networks"
+        # elif "wiki" in filename:
+        #     return "wiki"
+        # elif "forum" in filename:
+        #     return "forum"
+        # elif "webs" in filename:
+        #     return "webs"
+        # elif "c4" in filename:
+        #     return "c4"
+        # elif "langchao" in filename:
+        #     return "langchao"
+        # elif "wudao" in filename:
+        #     return "wudao"
+        # elif "books" in filename:
+        #     return "books"
+        # else:
+        #     return "customs"
+    else:
+        return "normal"
+    
+def store_minhashes(path, minhashes):
+    with open(path, "wb") as f:
+        pickle.dump(minhashes, f)
+    print("END TO STORE {} MINHASHES".format(path))
+    return 
+
+def read_minhashes(path):
+    with open(path, "rb") as f:
+        minhashes = pickle.load(f)
+    return minhashes
