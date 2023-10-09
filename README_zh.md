@@ -8,7 +8,7 @@
 
 * [解析文本](./Store/README_Store_zh.md "数据存储格式")
 * [固定格式](./Store/README_Store_zh.md "固定格式")
-* 文本去重
+* [文本去重](Deduplication/README_DP_zh.md)
 * 文本分类
 * 文本聚类
 * 文本清洗
