@@ -19,4 +19,4 @@ python main_deduplicated.py --data_path <file path or file dir> \
 
 ```
 
-上述的几个变量是必须要填写的，否则程序会报错。`data_path`表示文本文件的地址，可以是单个文件的地址也可以是多个文件组成的文件夹地址，如果是文件夹需要确认文件夹中的文件不存在格式错误，同时文件夹内所有文档读取不会 `out of memory`；`deduplicate_mode`表示去重所选择的模式，有 `["store", "search", "multi_search"]`三种模式可选，第一次运行请选择 `store`模式，保存基础的 `minhash index`在 `hash_index`文件夹中，`store`模式使用自我去重的方式，而 `search`模式则是将文件与已有的 `minhash index`进行扫描去重，`multi_search`模式则是防止基础 `minhash index`文件太大，分块读取并去重，如果你的文件很大同时你的设备内存较好，建议使用该模式，同时将 `name`参数进行设置；`deduplicated_ids_dir`则是保存去重后的文本id与重复的文本id两个文件的文件夹路径；`hashindex_dir`则是保存`hash index`索引的文件夹路径；
+上述的几个变量是必须要填写的，否则程序会报错。`data_path`表示文本文件的地址，可以是单个文件的地址也可以是多个文件组成的文件夹地址，如果是文件夹需要确认文件夹中的文件不存在格式错误，同时文件夹内所有文档读取不会 `out of memory`；`deduplicate_mode`表示去重所选择的模式，有 `["store", "search", "multi_search"]`三种模式可选，第一次运行请选择 `store`模式，保存基础的 `minhash index`在 `hash_index`文件夹中，`store`模式使用自我去重的方式，而 `search`模式则是将文件与已有的 `minhash index`进行扫描去重，`multi_search`模式则是防止基础 `minhash index`文件太大，分块读取并去重，如果你的文件很大同时你的设备内存较好，建议使用该模式，同时将 `name`参数进行设置；`deduplicated_ids_dir`则是保存去重后的文本id与重复的文本id两个文件的文件夹路径；`hashindex_dir`则是保存 `hash index`索引的文件夹路径；`workers`默认是`4`，如果你的CPU核心与内存充足你可以设置的更高一些。
