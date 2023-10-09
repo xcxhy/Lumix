@@ -89,4 +89,16 @@ cd Store
 python unified_format.py --path <path> --id-path <id_path> --save-dir <save_dir>
 ```
 
-在运行 `unified_format.py`之前，你需要确认自己的文件名符合标准，同时你需要自定义适合你文件的读取格式。
+在运行 `unified_format.py`之前，你需要确认自己的文件名符合标准，同时你需要自定义适合你文件的读取格式。你需要在文件中修改 `read_trade_customs`函数，从而适配你得文件，从而得到一个标准得保存格式。
+
+我们所设置的标准的保存格式为：
+
+<details><summary>标准格式</summary>
+
+```
+{
+	"unique_id" : xx,
+	"text" : xx,
+	"meta" : {xx: xx, xx: xx}
+}
+```
