@@ -102,3 +102,5 @@ python unified_format.py --path <path> --id-path <id_path> --save-dir <save_dir>
 	"meta" : {xx: xx, xx: xx}
 }
 ```
+
+在运行 `unique_format.py`为每条样本增加唯一ID后,会得到一个 `unique_ids.json`文件用于保存所有已经使用的ID，防止出现ID重复的情况与一个 `filename.json`文件用于存储新的文本文件。

@@ -1,9 +1,9 @@
 import os
 import sys
-sys.path.append("/home/xuhao/xcxhy")
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np 
 import time
-from Focus_Dataset_v2.utils import *
+from utils import *
 import re
 from tqdm import tqdm
 from itertools import chain, repeat
@@ -62,7 +62,7 @@ def search_duplicate(id, minhashes, lsh):
     else:
         return None
     
-def hash_store(id_to_text_dict, processing="single1"):
+def hash_store(id_to_text_dict, processing="single1", workers=4):
     minhashes = {}
     lsh = MinHashLSH(num_perm=256, threshold=0.9)
     if processing == "single":
@@ -75,7 +75,7 @@ def hash_store(id_to_text_dict, processing="single1"):
         start = time.time()
         ids = list(id_to_text_dict.keys())
         texts = [value for value in id_to_text_dict.values()]
-        pool = Pool(15)
+        pool = Pool(workers)
         chunk_size = len(ids)//pool._processes
         result = pool.starmap(compute_min, zip(ids, texts), chunksize=chunk_size)
         pool.close()
@@ -132,7 +132,7 @@ def hash_store(id_to_text_dict, processing="single1"):
     
     return new_minhashes, duplicated_res
 
-def hash_search(id_to_text_dict, minhashes, processing="single"):
+def hash_search(id_to_text_dict, minhashes, processing="single", workers=4):
     search_minhashes = {}
     origin_lsh = MinHashLSH(num_perm=256, threshold=0.9)
     origin_lsh = minhash_lsh(minhashes, origin_lsh)
@@ -145,7 +145,7 @@ def hash_search(id_to_text_dict, minhashes, processing="single"):
         search_lsh = MinHashLSH(num_perm=256, threshold=0.9)
         ids = list(id_to_text_dict.keys())
         texts = [value for value in id_to_text_dict.values()]
-        pool = Pool(4)
+        pool = Pool(workers)
         chunk_size = len(ids)//pool._processes
         result = pool.starmap(compute_min, zip(ids, texts), chunksize=chunk_size)
         pool.close()
@@ -182,7 +182,7 @@ def hash_search(id_to_text_dict, minhashes, processing="single"):
     #     if id in list(minhashes.keys()):
     #         print("error") 
     return deduplicated_minhashes, duplicated_result
-def multi_get_minhash(id_to_text_dict, processing="single"):
+def multi_get_minhash(id_to_text_dict, processing="single", workers=4):
     search_minhashes = {}
     if processing == "single":
         search_lsh = MinHashLSH(num_perm=256, threshold=0.9)
@@ -193,7 +193,7 @@ def multi_get_minhash(id_to_text_dict, processing="single"):
         search_lsh = MinHashLSH(num_perm=256, threshold=0.9)
         ids = list(id_to_text_dict.keys())
         texts = [value for value in id_to_text_dict.values()]
-        pool = Pool(4)
+        pool = Pool(workers)
         chunk_size = len(ids)//pool._processes
         result = pool.starmap(compute_min, zip(ids, texts), chunksize=chunk_size)
         pool.close()

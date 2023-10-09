@@ -269,7 +269,7 @@ def read_trade_books(path, files_ids, save_dir):
 if __name__=="__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--path", type=str, default="D:\\github_lab\\Lumix\\Data\\store\\trade_webs_cleaned_8.json", help="data_path")
+    parser.add_argument("--path", type=str, default="D:\\github_lab\\Lumix\\Data\\trade_webs_cleaned_8.json", help="data_path")
     parser.add_argument("--id_path", type=str, default="D:\\github_lab\\Lumix\\Data\\store\\unique_ids.json", help="id path")
     parser.add_argument("--save_dir", type=str, default="D:\\github_lab\\Lumix\\Data\\store", help="save dir")
     args = parser.parse_args()
