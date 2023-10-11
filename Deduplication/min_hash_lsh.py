@@ -240,37 +240,3 @@ def choose_duplicate_ids(duplicated_list):
         else:
             duplicated_res[values[0]] = values[1:]
     return duplicated_res
-
-if __name__=="__main__":
-    data_path = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/unique/networks/trade_networks_2023_08_23_unique.json"
-    data = read_json(data_path)
-    
-    id_to_text_dict, id_to_value_dict = {}, {}
-    for i in tqdm(range(10000)):
-        value = data[i]
-        id_to_text_dict[value["unique_id"]] = value["text"]
-        id_to_value_dict[value["unique_id"]] = value
-    minhashes, merged_list = hash_store(id_to_text_dict)
-    print(len(merged_list))
-    # store_minhashes("/home/xuhao/xcxhy/Focus_Hash/dataset/minhashes.json", minhashes)
-    
-    # minhashes = read_minhashes("/home/xuhao/xcxhy/Focus_Hash/dataset/minhashes.json")
-    # new_minhashes, duplicated_ids = hash_search(id_to_text_dict, minhashes)
-    
-    cate = "networks"
-    hashindex_dir = "/hdfs_nfs_mount/LLM_data/llm_basedata/process/hash_index"
-    single_hashindex_dir = os.path.join(hashindex_dir, cate)
-    if not os.path.exists(single_hashindex_dir):
-        os.makedirs(single_hashindex_dir)
-        
-    if len(list(minhashes.keys())) > 2000:
-        parts_minhashes = []
-        for i in range(0, len(list(minhashes.keys())), 2000):
-            parts_minhashes.append(dict(list(minhashes.items())[i:i+2000]))
-        for i in range(len(parts_minhashes)):
-            parts = parts_minhashes[i]
-            store_minhashes(os.path.join(single_hashindex_dir, "{cate}_minhashes_{num}.json".format(cate=cate, num=i)), parts)
-    else:
-        store_minhashes(os.path.join(single_hashindex_dir, "{}_minhashes.json".format(cate)), minhashes)
-    
-    
