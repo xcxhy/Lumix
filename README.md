@@ -5,3 +5,10 @@ This is an open source project for preparing large language model data. Due to t
 I hope this project can help everyone to complete the data cleaning work as much as possible, so that everyone can focus more on model training and fine-tuning.
 
 ## Project structure
+
+* Parse document
+* Fixed format
+* Document deduplication
+* Document classification
+* Document cluster
+* Text cleaning
