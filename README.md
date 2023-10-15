@@ -6,8 +6,8 @@ I hope this project can help everyone to complete the data cleaning work as much
 
 ## Project structure
 
-* Parse document
-* Fixed format
+* [Parse document](Store/README_Store.md)
+* [Fixed format]()
 * Document deduplication
 * Document classification
 * Document cluster
