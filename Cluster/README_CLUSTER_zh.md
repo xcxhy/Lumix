@@ -8,6 +8,9 @@
 #### K-Means
 
 使用K-Means聚类方法，需要先确定聚类的数量，然后
+
 #### Agglomerative Clustering
+
+层次聚类方法，
 
 #### Community Detection
