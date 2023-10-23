@@ -40,6 +40,28 @@ def write_json(path, dataset):
     with open(path, "w", encoding='utf-8') as file:
         file.write(dict_json)
     return 
+def read_file_or_dir(path):
+    # start read file
+    # judge file or dir
+    if os.path.isfile(path):
+        data = read_json(path)
+        # get part data
+        # data = data[:1000]
+        cate = choose_file_category(path)
+        return data, cate
+    elif os.path.isdir(path):
+        data = []
+        files = os.listdir(path)
+        for file in tqdm(files):
+            if file.endswith(".json") or file.endswith(".jsonl"):
+                file_path = os.path.join(path, file)
+                value = read_json(file_path)
+                data.extend(value)
+        cate = choose_file_category(os.path.join(path, files[0]))
+        return data, cate
+    else:
+        raise ValueError("path is not a file or dir")
+    
 # 增加json文件
 def write_json_add(path, dataset):
     dict_json = json.dumps(dataset, indent=4, ensure_ascii=False)
