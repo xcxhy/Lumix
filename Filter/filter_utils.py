@@ -14,7 +14,7 @@ def filter_messy_code_text(data):
     '''
     start = time.time()
     print('Start filtering messy code text...')
-    positive_list, negative_list = fasttext_format_inference_singel(data)
+    positive_list, negative_list = fasttext_format_inference_single(data)
     end = time.time()
     print('Filtering messy code text done, time cost: %.2f s' % (end - start))
     
