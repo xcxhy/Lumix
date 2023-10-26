@@ -11,8 +11,8 @@ from utils import *
 from itertools import chain, repeat
 from concurrent import futures
 from Deduplication.levenshtein_deduplication import fuzzy_deduplicate
-from Deduplication.minhash_lsh import min_hashlsh_main
-from Deduplication.sim_hash import sim_hash_main
+# from Deduplication.minhash_lsh import min_hashlsh_main
+# from Deduplication.sim_hash import sim_hash_main
 from clean_content import *
 import emoji
 from autocorrect import Speller

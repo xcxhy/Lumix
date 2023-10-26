@@ -6,9 +6,33 @@
 
 ## 项目结构
 
-* [解析文本](./Store/README_Store_zh.md "数据存储格式")
-* [固定格式](./Store/README_Store_zh.md "固定格式")
-* [文本去重](Deduplication/README_DP_zh.md)
-* 文本分类
+* [解析文档](./Store/README_Store_zh.md "数据存储格式")
+* [固定格式](Store\README_Store_zh.md "固定格式")
+* [添加唯一ID](Store\README_Store_zh.md "反向确认")
+* [文档分类](Classification\README_CLASS_zh.md)
+* [文档去重](Deduplication/README_DP_zh.md)
+* [文档过滤](Filter\README_Filter_zh.md)
 * 文本聚类
 * 文本清洗
+
+---
+
+## 处理流程
+
+1. 解析文档
+2. 固定格式
+3. 添加唯一ID
+4. 文档分类
+5. 文档去重
+6. 文档过滤
+7. 文本清洗
+8. 制作数据集
+
+---
+
+## 使用方式
+
+固定格式
+
+
+## 数据存储

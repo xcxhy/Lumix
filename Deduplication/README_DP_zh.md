@@ -1,4 +1,3 @@
-
 # 文档去重
 
 **文档去重**是在针对预训练语料中非常重要的一个步骤，重复的文档在预训练过程中会降低模型的性能。**文档去重**的方法其实有很多，比如 **模糊去重** ， **SimHash** ， **MinHash** ， **KSentence** ，**KShingle**等算法去重，通过**计算计算最长子串去重**也同样适用。
@@ -15,8 +14,10 @@
 cd Deduplication
 python main_deduplicated.py --data_path <file path or file dir> \
 	--deduplicate_mode <store|search|multi_search> \
+	--workers <int> \
 	--deduplicated_ids_dir <deduplicated and duplicated ids dir> \
-	--hashindex_dir <minhash index dir> 
+	--hashindex_dir <minhash index dir> \
+	--name <name>
 
 ```
 

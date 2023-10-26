@@ -274,14 +274,14 @@ def single_minhash_deduplicated(mode, id_to_text_dict, cate, processing, workers
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_path", type=str, default="D:\\github_lab\\Lumix\\Data\\store\\webs\\trade_webs_cleaned_8_unique.json", help="data path")
+    parser.add_argument("--data_path", type=str, default="Data\\unique\\trade\\webs\\trade_webs_cleaned_8_unique.json", help="data path")
     parser.add_argument("--deduplicate", type=str, choices=["minhash", "simhash"], default="minhash", help="deduplicate method")
     parser.add_argument("--processing", type=str, choices=["single", "multi"], default="multi", help="processing method")
     parser.add_argument("--workers", type=int, default=4, help="workers")
     parser.add_argument("--deduplicate_mode", type=str, choices=["store", "search", "multi_search"], default="store", help="deduplicate mode")
     parser.add_argument("--multi_deduplicate", type=bool, default=False, help="use multi deduplicate")
-    parser.add_argument("--deduplicated_ids_dir", type=str, default="D:\\github_lab\\Lumix\\Data\\deduplicated", help="index path")
-    parser.add_argument("--hashindex_dir", type=str, default="D:\\github_lab\\Lumix\\Data\\hash_index", help="index path")
+    parser.add_argument("--deduplicated_ids_dir", type=str, default="Data\\ids\\deduplicated", help="index path")
+    parser.add_argument("--hashindex_dir", type=str, default="Data\\hash_index", help="index path")
     parser.add_argument("--update_minhashes", type=bool, default=True, help="update minhashes")
     parser.add_argument("--use_hash", type=bool, default=True, help="use hash")
     parser.add_argument("--name", type=str, default="langchao", help="name")
