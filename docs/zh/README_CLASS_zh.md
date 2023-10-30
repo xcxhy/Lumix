@@ -22,13 +22,20 @@
 
 ---
 
-
-
 ## 质量分类
+
+使用fasttext的质量分类，我们提供了两种构造数据集的方法，你可以在 `Classification`文件夹的 `prepare_dataset `与 `prepare_quality_dataset`文件用于参考，生成对应的训练文本，运行：
+
+```
+cd Classification
+python train.py
+```
+
+在运行前请修改文件中得文本文件路径与需要保存的模型路径，运行完毕推理代码请参考 `inference`文件自定义修改你所需要分类推理代码。
 
 ## 内容分类
 
-我们推荐使用zero shot分类的方法，运行以下：
+我们推荐使用zero shot集成分类的方法，运行以下：
 
 ```
 cd Classification
