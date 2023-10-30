@@ -6,7 +6,7 @@
 
 ## 项目结构
 
-* [解析文档](docs\zh\README_Store_zh.md "数据存储格式")
+* [解析文档](./docs/zh/README_Store_zh.md "数据存储格式")
 * [固定格式](./docs/zh/README_Store_zh.md "固定格式")
 * [添加唯一ID](docs\zh\README_Store_zh.md "反向确认")
 * [文档分类](docs\zh\README_CLASS_zh.md)
