@@ -7,7 +7,7 @@
 ## 项目结构
 
 * [解析文档](docs\zh\README_Store_zh.md "数据存储格式")
-* [固定格式](docs\zh\README_Store_zh.md "固定格式")
+* [固定格式](./docs/zh/README_Store_zh.md "固定格式")
 * [添加唯一ID](docs\zh\README_Store_zh.md "反向确认")
 * [文档分类](docs\zh\README_CLASS_zh.md)
 * [文档去重](docs\zh\README_DP_zh.md)
@@ -42,8 +42,6 @@ source fast/bin/activate
 
 ---
 
-
-
 ## 数据存储
 
 所有的数据都会存储在 `Data`目录下，`Data`下存储结构如下：
@@ -58,8 +56,6 @@ source fast/bin/activate
 * `filename_to_ids.json`：存储每个文本文件中的 `ID`列表
 
 ---
-
-
 
 ## 简单使用
 
